@@ -29,7 +29,7 @@ class ClassroomController extends Controller
      */
     public function create()
     {
-        //
+        return view('classrooms.create');
     }
 
     /**
@@ -40,7 +40,28 @@ class ClassroomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+
+        //VALIDAZIONE
+        $request->validate([
+            'name' => 'required|unique:classrooms|max:10',
+            'description' => 'required'
+        ]);
+
+
+        //SALVARE DATI A DB
+        $classroom = new Classroom();
+        $classroom->name = $data['name'];
+        $classroom->description = $data['description'];
+
+        $saved = $classroom->save();
+        //dd($saved);
+
+        if($saved == true) {
+            return redirect()->route('classrooms.show', $classroom->id);
+        }
+
     }
 
     /**
@@ -51,7 +72,10 @@ class ClassroomController extends Controller
      */
     public function show($id)
     {
-        //
+        $classroom = Classroom::find($id);
+        //dd($classroom);
+
+        return view('classrooms.show', compact('classroom'));
     }
 
     /**

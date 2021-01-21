@@ -4,7 +4,7 @@
     <div class="container mb-5">
         <h1>Our classrooms</h1>
 
-        <table class="table">
+        <table class="table mt-5 table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
